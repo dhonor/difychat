@@ -8,7 +8,7 @@ import { useBoolean, useGetState } from 'ahooks'
 import useConversation from '@/hooks/use-conversation'
 import Toast from '@/app/components/base/toast'
 import Sidebar from '@/app/components/sidebar'
-import ConfigSence from '@/app/components/config-scence'
+import Welcome from '@/app/components/welcome'
 import Header from '@/app/components/header'
 import { fetchAppParams, fetchChatList, fetchConversations, generationConversationName, sendChatMessage, updateFeedback } from '@/service'
 import type { ChatItem, ConversationItem, Feedbacktype, PromptConfig, VisionFile, VisionSettings } from '@/types/app'
@@ -677,21 +677,18 @@ const Main: FC<IMainProps> = () => {
         )}
         {/* main */}
         <div className='flex-grow flex flex-col h-[calc(100vh_-_3rem)] overflow-y-auto'>
-          <ConfigSence
+          <Welcome
             conversationName={conversationName}
             hasSetInputs={hasSetInputs}
-            isPublicVersion={isShowPrompt}
-            siteInfo={APP_INFO}
             promptConfig={promptConfig}
             onStartChat={handleStartChat}
-            canEditInputs={canEditInputs}
+            onSend={handleSend}
             savedInputs={currInputs as Record<string, any>}
-            onInputsChange={setCurrInputs}
-          ></ConfigSence>
+          ></Welcome>
 
           {
             hasSetInputs && (
-              <div className='relative grow h-[200px] pc:w-[794px] max-w-full mobile:w-full pb-[66px] mx-auto mb-3.5 overflow-hidden'>
+              <div className='relative grow h-[200px] pc:w-[794px] max-w-full mobile:w-full mx-auto'>
                 <div className='h-full overflow-y-auto' ref={chatListDomRef}>
                   <Chat
                     chatList={chatList}
