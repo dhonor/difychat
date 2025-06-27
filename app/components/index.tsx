@@ -459,13 +459,18 @@ const Main: FC<IMainProps> = () => {
           return
 
         if (getConversationIdChangeBecauseOfNew()) {
-          const { data: allConversations }: any = await fetchConversations()
-          const newItem: any = await generationConversationName(allConversations[0].id)
+          try {
+            const { data: allConversations }: any = await fetchConversations()
+            const newItem: any = await generationConversationName(allConversations[0].id)
 
-          const newAllConversations = produce(allConversations, (draft: any) => {
-            draft[0].name = newItem.name
-          })
-          setConversationList(newAllConversations as any)
+            const newAllConversations = produce(allConversations, (draft: any) => {
+              draft[0].name = newItem.name
+            })
+            setConversationList(newAllConversations as any)
+          } catch (e) {
+            console.error(e)
+            setRespondingFalse()
+          }
         }
         setConversationIdChangeBecauseOfNew(false)
         resetNewConversationInputs()
@@ -676,7 +681,7 @@ const Main: FC<IMainProps> = () => {
           </div>
         )}
         {/* main */}
-        <div className='flex-grow flex flex-col h-[calc(100vh_-_3rem)] overflow-y-auto'>
+        <div className='relative flex-grow flex flex-col h-[calc(100vh_-_3rem)] overflow-y-auto'>
           <Welcome
             conversationName={conversationName}
             hasSetInputs={hasSetInputs}
@@ -684,6 +689,7 @@ const Main: FC<IMainProps> = () => {
             onStartChat={handleStartChat}
             onSend={handleSend}
             savedInputs={currInputs as Record<string, any>}
+            visionConfig={visionConfig}
           ></Welcome>
 
           {

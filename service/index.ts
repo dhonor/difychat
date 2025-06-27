@@ -41,11 +41,11 @@ export const sendChatMessage = async (
 }
 
 export const fetchConversations = async () => {
-  return get('conversations', { params: { limit: 100, first_id: '' } })
+  return get('conversations', { params: { limit: 1000, first_id: '' } })
 }
 
 export const fetchChatList = async (conversationId: string) => {
-  return get('messages', { params: { conversation_id: conversationId, limit: 20, last_id: '' } })
+  return get('messages', { params: { conversation_id: conversationId, limit: 1000, last_id: '' } })
 }
 
 // init value. wait for server update

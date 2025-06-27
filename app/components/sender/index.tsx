@@ -78,8 +78,8 @@ const Sender = forwardRef<SenderHandle, ISenderProps>(({
                 active: '/images/icon-oa-active.png'
             },
             subLabels: [
-                { label: 'OA问题', bgColor: 'bg-orange-100', textColor: 'text-orange-800' },
-                { label: '报销问题', bgColor: 'bg-green-100', textColor: 'text-green-800' }
+                { label: 'OA问题', bgColor: 'bg-orange-100', textColor: 'text-orange-800', content: '关于OA系统的常见问题咨询' },
+                { label: '报销问题', bgColor: 'bg-green-100', textColor: 'text-green-800', content: '报销流程及注意事项相关内容' }
             ]
         },
         {
@@ -89,8 +89,8 @@ const Sender = forwardRef<SenderHandle, ISenderProps>(({
                 active: '/images/icon-policy-active.png'
             },
             subLabels: [
-                { label: '福多多', bgColor: 'bg-orange-100', textColor: 'text-orange-800' },
-                { label: '鑫享福终身寿', bgColor: 'bg-green-100', textColor: 'text-green-800' }
+                { label: '福多多', bgColor: 'bg-orange-100', textColor: 'text-orange-800', content: '福多多保险产品的特点和优势' },
+                { label: '鑫享福终身寿', bgColor: 'bg-green-100', textColor: 'text-green-800', content: '介绍一下鑫享福终身寿产品保险条款' }
             ]
         },
         {
@@ -100,8 +100,8 @@ const Sender = forwardRef<SenderHandle, ISenderProps>(({
                 active: '/images/icon-rule-active.png'
             },
             subLabels: [
-                { label: '考勤制度', bgColor: 'bg-orange-100', textColor: 'text-orange-800' },
-                { label: '安全规范', bgColor: 'bg-green-100', textColor: 'text-green-800' }
+                { label: '考勤制度', bgColor: 'bg-orange-100', textColor: 'text-orange-800', content: '公司考勤制度的具体规定' },
+                { label: '安全规范', bgColor: 'bg-green-100', textColor: 'text-green-800', content: '安全操作规范相关内容' }
             ]
         },
     ]
@@ -230,7 +230,11 @@ const Sender = forwardRef<SenderHandle, ISenderProps>(({
                             {mainTabs.find(tab => tab.label === activeMainTab)?.subLabels?.map((subLabel, index) => (
                                 <span
                                     key={index}
-                                    className={`px-3 py-1 rounded-lg ${subLabel.bgColor} ${subLabel.textColor} cursor-default`}
+                                    className={`px-3 py-1 rounded-lg ${subLabel.bgColor} ${subLabel.textColor} cursor-pointer`}
+                                    onClick={() => {
+                                        setQuery(subLabel.content);
+                                        queryRef.current = subLabel.content;
+                                    }}
                                 >
                                     {subLabel.label}
                                 </span>
